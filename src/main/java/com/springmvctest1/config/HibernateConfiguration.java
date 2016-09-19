@@ -27,13 +27,13 @@ public class HibernateConfiguration {
 	public LocalSessionFactoryBean sessionFactory(){
 		
 		LocalSessionFactoryBean session = new LocalSessionFactoryBean();
-		session.setDataSource(getDataSource());
-		session.setHibernateProperties(getHibernateProperties());
-		session.setPackagesToScan("com.springmvctest1.config");
+		session.setDataSource(dataSource());
+		session.setHibernateProperties(hibernateProperties());
+		session.setPackagesToScan(new String [] {"com.springmvctest1.model"});
 		return session;
 	}
 	
-	private Properties getHibernateProperties() {
+	private Properties hibernateProperties() {
 		
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -43,7 +43,7 @@ public class HibernateConfiguration {
 		return properties;
 	}
 
-	public DataSource getDataSource() {
+	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
 		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
@@ -51,7 +51,7 @@ public class HibernateConfiguration {
 		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
 		return dataSource;
 	}
-	
+
 	@Bean
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory s){
