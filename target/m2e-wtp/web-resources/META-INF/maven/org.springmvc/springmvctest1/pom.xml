@@ -73,6 +73,13 @@
 
 	<!--  Hibernate dependency -->
 	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
+	
+	<!--  H2 dependency -->
+	<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
 		<version>1.4.187</version>
