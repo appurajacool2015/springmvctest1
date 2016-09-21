@@ -36,8 +36,8 @@ public class AppController {
 	@RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model){
 		
-		List<Employee> employee = service.findAllEmployees();
-		model.addAttribute("employees", employee);
+		List<Employee> employees = service.findAllEmployees();
+		model.addAttribute("employees", employees);
 		return "allemployees";
 	}
 
@@ -49,28 +49,44 @@ public class AppController {
 		return "registration";
 	}
 	
-	/**
-	 * This method will be called on form submission, handling POST request for 
-	 * updating employee in database. It also validates the user input
- 	 *
-	 */
-	@RequestMapping(value = {"/edit-{ssn}-employee"}, method = RequestMethod.GET)
-	public String updateEmployee(@Valid @ModelAttribute Employee employee, BindingResult result,
+		/**
+		 * This method will be called on form submission, handling POST request for 
+		 * updating employee in database. It also validates the user input
+	 	 *
+		 */
+		@RequestMapping(value = {"/edit-{ssn}-employee"}, method = RequestMethod.GET)
+		public String updateEmployee(@Valid @ModelAttribute Employee employee, BindingResult result,
 			ModelMap model, @PathVariable String ssn) {
 		
 		if(result.hasErrors()) {
 			return "registration";
 		}
+
+		/*
+		 * Preferred way to achieve uniqueness of field [ssn] should be implementing custom @Unique annotation 
+		 * and applying it on field [ssn] of Model class [Employee].
+		 * 
+		 * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
+		 * framework as well while still using internationalized messages.
+		 * 
+		 */
+
 		if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
 			FieldError ssnError = new FieldError("employee", "ssn", messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
 			result.addError(ssnError);
 			return "registration";
 		}
+
 		service.saveEmployee(employee);
+
 		model.addAttribute("success", "Employee "  + employee.getName() + "  registered successfully");
 		return "success";
 	}
-	
+
+	/*
+	 * This method will be called on form submission, handling POST request for
+	 * updating employee in database. It also validates the user input
+	 */	
 	@RequestMapping(value = {"/edit-employee-{ssn}"}, method = RequestMethod.GET)
 	public String editEmployee(@ModelAttribute Employee employee, BindingResult result,
 			ModelMap model, @PathVariable String ssn) {
@@ -88,6 +104,9 @@ public class AppController {
 		return "success";
 	}
 
+/*
+	 * This method will delete an employee by it's SSN value.
+	 */
 	@RequestMapping(value = {"/delete-{ssn}-employee"}, method = RequestMethod.GET)
 	public String deleteEmployee(@PathVariable String ssn){
 		service.deleteEmployeeBySsn(ssn);
