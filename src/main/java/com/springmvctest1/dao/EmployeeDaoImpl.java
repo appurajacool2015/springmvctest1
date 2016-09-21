@@ -20,17 +20,20 @@ public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements E
 		persist(employee);
 	}
 
-	public void deleteEmployee(String ssn) {
-		Query query = getSession().createSQLQuery("delete from Employee where ssn = :ssn");
-		query.setString("ssn", ssn);
-		query.executeUpdate();
-		
-	}
-
 	public void updateEmployee(Employee employee) {
 		getSession().update(employee);
 	}
 	
+	public void deleteEmployee(Employee employee) {
+		getSession().delete(employee);
+	}
+
+	public void deleteEmployeeBySsn(String ssn) {
+		Query query = getSession().createSQLQuery("delete from Employee where ssn = :ssn");
+		query.setString("ssn", ssn);
+		query.executeUpdate();
+	}
+
 	public List<Employee> findAllEmployees() {
 		Criteria criteria = createEntityCriteria();
 		return (List<Employee>) criteria.list();
@@ -41,5 +44,4 @@ public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements E
 		criteria.add(Restrictions.eq("ssn", ssn));
 		return (Employee) criteria.uniqueResult();
 	}
-
 }

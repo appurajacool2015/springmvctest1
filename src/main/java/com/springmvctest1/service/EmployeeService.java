@@ -12,9 +12,13 @@ public interface EmployeeService {
 	
 	void updateEmployee(Employee employee);
 	
+	void deleteEmployee(Employee employee);
+	
 	void deleteEmployeeBySsn(String ssn);
 	
-	List<Employee> findAllEmployeeBySsn(String ssn);
+	Employee findEmployeeBySsn(String ssn);
+	
+	List<Employee> findAllEmployees();
 	
 	boolean isEmployeeSsnUnique(Integer id, String ssn);
 
