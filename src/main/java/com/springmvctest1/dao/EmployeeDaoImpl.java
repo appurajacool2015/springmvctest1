@@ -3,6 +3,7 @@ package com.springmvctest1.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +20,17 @@ public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements E
 		persist(employee);
 	}
 
-	public void deleteEmployee(Employee employee) {
-		deleteEmployee(employee);
+	public void deleteEmployee(String ssn) {
+		Query query = getSession().createSQLQuery("delete from Employee where ssn = :ssn");
+		query.setString("ssn", ssn);
+		query.executeUpdate();
+		
 	}
 
+	public void updateEmployee(Employee employee) {
+		getSession().update(employee);
+	}
+	
 	public List<Employee> findAllEmployees() {
 		Criteria criteria = createEntityCriteria();
 		return (List<Employee>) criteria.list();
