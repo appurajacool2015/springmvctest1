@@ -11,8 +11,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@ComponentScan(basePackages ={"com.springmvctest1"})
-public class AppConfig extends WebMvcConfigurationSupport{
+@ComponentScan(basePackages = "com.springmvctest1")
+public class ApplicationConfig extends WebMvcConfigurationSupport{
 	
 	@Bean
 	public ViewResolver getViewResolver(){
