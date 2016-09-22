@@ -23,6 +23,20 @@ public class HibernateConfiguration {
 	@Autowired
 	private Environment environment;
 	
+	//LocalSessionFactory
+	//		setDataSource
+	//			jdbc.driverClassName
+	//			jdbc.url
+	//			jdbc.username
+	//			jdbc.password
+	//		setHibernateProperties
+	//			hibernate.dialect
+	//			hibernate.show_sql
+	//			hibernate.format_sql
+	//			hibernate.hbm2ddl.auto
+	//		setPackagesToScan
+	//HibernateTransacionManager
+	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory(){
 		
