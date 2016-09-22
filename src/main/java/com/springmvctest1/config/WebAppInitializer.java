@@ -11,13 +11,16 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class WebAppInitializer implements WebApplicationInitializer {
 
 	public void onStartup(ServletContext sc) throws ServletException {
+
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(AppConfig.class);
 		context.setServletContext(sc);
 		
-		ServletRegistration.Dynamic servlet = sc.addServlet("dynamic", new DispatcherServlet(context));
+		ServletRegistration.Dynamic servlet = sc.addServlet("dynamic",
+				new DispatcherServlet(context));
+
 		servlet.setLoadOnStartup(1);
 		servlet.addMapping("/");
 	}
-	
+
 }

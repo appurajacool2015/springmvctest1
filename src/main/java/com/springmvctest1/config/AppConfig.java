@@ -8,6 +8,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan(basePackages ={"com.springmvctest1"})
@@ -15,10 +16,11 @@ public class AppConfig extends WebMvcConfigurationSupport{
 	
 	@Bean
 	public ViewResolver getViewResolver(){
-		InternalResourceViewResolver view = new InternalResourceViewResolver();
-		view.setPrefix("/WEB-INF/views/");
-		view.setSuffix(".jsp");
-		return view;
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class);
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".jsp");
+		return viewResolver;
 	}
 
 	@Bean

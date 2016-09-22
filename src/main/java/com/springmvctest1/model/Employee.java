@@ -13,6 +13,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,6 +32,7 @@ public class Employee {
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name= "JOINING_DATE", nullable = false)
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate joiningDate;
 	
 	@NotNull
