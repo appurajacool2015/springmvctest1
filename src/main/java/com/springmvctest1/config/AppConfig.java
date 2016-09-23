@@ -12,21 +12,23 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan(basePackages = "com.springmvctest1")
-public class ApplicationConfig extends WebMvcConfigurationSupport{
+public class AppConfig extends WebMvcConfigurationSupport {
 	
 	@Bean
-	public ViewResolver getViewResolver(){
+	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
+
 		return viewResolver;
 	}
-
+	
 	@Bean
-	public MessageSource getMessageSource(){
-		ResourceBundleMessageSource msgSource = new ResourceBundleMessageSource();
-		msgSource.setBasenames("messages");
-		return msgSource;
+	public MessageSource messageSource() {
+	    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+	    messageSource.setBasename("messages");
+	    return messageSource;
 	}
 }
+

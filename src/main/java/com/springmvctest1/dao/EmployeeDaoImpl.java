@@ -34,6 +34,7 @@ public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements E
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Employee> findAllEmployees() {
 		Criteria criteria = createEntityCriteria();
 		return (List<Employee>) criteria.list();

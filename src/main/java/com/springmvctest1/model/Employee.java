@@ -32,7 +32,7 @@ public class Employee {
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name= "JOINING_DATE", nullable = false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+//	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate joiningDate;
 	
 	@NotNull
